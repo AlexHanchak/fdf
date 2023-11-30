@@ -1,6 +1,16 @@
-#include "../includes/fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/08 13:13:26 by ohanchak          #+#    #+#             */
+/*   Updated: 2022/12/28 19:15:26 by ohanchak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/* The helper functions that help to keep the code according to the norm */
+#include "../includes/fdf.h"
 
 void	key_space(t_fdf *fdf)
 {

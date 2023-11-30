@@ -1,10 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/02 10:51:22 by ohanchak          #+#    #+#             */
+/*   Updated: 2022/12/28 19:15:26 by ohanchak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-/*
-** Put a pixel in a specific position defined by the draw_lines() function.
-** If there's an area, make those colors lighter.
-*/
 
 static void	put_pixel(t_fdf *fdf, int y, int z, double uvector)
 {
@@ -19,12 +25,6 @@ static void	put_pixel(t_fdf *fdf, int y, int z, double uvector)
 		fdf->image.data[pos + 3] = 0x7F + uvector;
 	}
 }
-
-/*
-** Connect the values with lines, and draw each line pixel by pixel.
-** Calculates the unit vector between the difference of each point (y and z),
-** to get the correct length when the x_val increases or decreases.
-*/
 
 static void	draw_lines(t_fdf *fdf)
 {
@@ -50,13 +50,6 @@ static void	draw_lines(t_fdf *fdf)
 	}
 }
 
-/*
-** Draw the map, depending on the angles, the zoom level, the position (defined)
-** by the average value of the window size, and if the user has moved the map,
-** and the x value (isometric).
-** Will draw horizontal lines (y axis).
-*/
-
 static void	draw_horizontal(t_fdf *fdf, int y, int z)
 {
 	int		yt;
@@ -77,13 +70,6 @@ static void	draw_horizontal(t_fdf *fdf, int y, int z)
 	draw_lines(fdf);
 }
 
-/*
-** Draw the map, depending on the angles, the zoom level, the position (defined)
-** by the average value of the window size, and if the user has moved the map,
-** and the x value (isometric).
-** Will draw vertical lines (z axis).
-*/
-
 static void	draw_vertical(t_fdf *fdf, int y, int z)
 {
 	int		yt;
@@ -103,14 +89,6 @@ static void	draw_vertical(t_fdf *fdf, int y, int z)
 	fdf->map.z1 += (WIN_HEIGHT / 2) + fdf->map.coordinate_z;
 	draw_lines(fdf);
 }
-
-/*
-** Draw the map by image.
-** Creates a new one, and destroys the old one whenever an action occures.
-** The characters in the draw_map() function stands for:
-** @h -> horizontal
-** @v -> vertical
-*/
 
 int	ft_draw(t_fdf *fdf)
 {
