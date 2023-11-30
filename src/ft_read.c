@@ -26,7 +26,7 @@ static int	count_values(char *line)
 				line += 1;
 		}
 		else if (*line != ' ' && *line != '-')
-			ft_error("Invalid characters or read error...!!!", 5);
+			ft_message("Invalid characters or read error...!!!", 5);
 		line += 1;
 	}
 	return (len);
@@ -44,17 +44,17 @@ static void	count_lines(t_fdf *fdf, char *map_file)
 	cols = 0;
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		ft_error("Error opening file!!!", 1);
+		ft_message("Error opening file!!!", 1);
 	while (get_next_line(fd, &line)==1)
 	{
 		if (*line == '\0')
 			break ;
 		len = count_values(line);
-		ft_check(&cols, &rows, &len);
+		check_rows_col(&cols, &rows, &len);
 		free(line);
 	}
 	if (close(fd) < 0)
-		ft_error("Error closing file!!!", 2);
+		ft_message("Error closing file!!!", 2);
 	fdf->map.width = cols;
 	fdf->map.height = rows;
 }
@@ -90,17 +90,17 @@ void	ft_read(char *map_file, t_fdf *fdf)
 	fd = ft_open(map_file);
 	fdf->map.values = (int **)malloc(sizeof(int *) * fdf->map.height);
 	if (!fdf->map.values)
-		ft_error("Memory Allocation failed!!!", 3);
+		ft_message("Memory Allocation failed!!!", 3);
 	while (get_next_line(fd, &line) && z != fdf->map.height)
 	{
 		fdf->map.values[z] = (int *)malloc(sizeof(int) * fdf->map.width);
 		if (!fdf->map.values[z])
-			ft_error("Memory Allocation failed! :O", 3);
+			ft_message("Memory Allocation failed! :O", 3);
 		get_values(fdf, y, z, line);
 		y = 0;
 		z++;
 		free(line);
 	}
 	if (close(fd) < 0)
-		ft_error("Error closing file! WTF?! :)", 2);
+		ft_message("Error closing file! WTF?! :)", 2);
 }
