@@ -10,10 +10,15 @@ FLAGS		= -Wall -Wextra -Werror
 
 RM			= rm -rf
 
+GT 			= git clone git@github.com:AlexHanchak/lib.git
+
 .c.o:
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
 
 all:		$(NAME)
+
+lib:
+	$(GT) $@"ft"
 
 $(NAME):	$(OBJS)
 	@$(MAKE) -C ./mlx

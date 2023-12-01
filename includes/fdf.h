@@ -8,7 +8,7 @@
 # include <time.h>
 
 
-# include "mlx.h"
+# include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "keys.h"
 
