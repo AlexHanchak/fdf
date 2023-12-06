@@ -1,6 +1,9 @@
 
 NAME		= fdf
 
+LIBMLX		= ./lib/MLX42
+LIBS		= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+HEADERS		= -I ./include -I $(LIBMLX)/include
 SRCS		= ./src/main.c ./src/ft_read.c ./src/ft_draw.c ./src/utils.c
 OBJS		= $(SRCS:.c=.o)
 

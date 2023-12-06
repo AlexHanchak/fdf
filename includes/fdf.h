@@ -7,7 +7,6 @@
 # include <math.h>
 # include <time.h>
 
-
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "keys.h"
@@ -18,6 +17,14 @@
 # define WIN_WIDTH		(1280)
 # define WIN_HEIGHT		(720)
 
+typedef struct mlx
+{
+	void*		window;
+	void*		context;
+	int32_t		width;
+	int32_t		height;
+	double		delta_time;
+}	mlx_t;
 
 typedef struct s_mlx
 {

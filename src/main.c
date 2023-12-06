@@ -80,6 +80,21 @@ static int	keys_manip(int keycode, t_fdf *fdf)
 	return (0);
 }
 
+int	close_window(void *param)
+{
+	t_fdf *fdf;
+
+	fdf = (t_fdf *)param;
+	if (fdf)
+	{
+		fdf_terminate(fdf);
+		ft_free((void **)fdf->map.values);
+		free(fdf);
+	}
+	exit(0);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
@@ -94,9 +109,13 @@ int	main(int argc, char **argv)
 		fdf->mlx.init = mlx_init();
 		fdf->mlx.win = mlx_new_window(fdf->mlx.init, WIN_WIDTH, WIN_HEIGHT, \
 			"FDF");
+		mlx_hook(fdf->mlx.win, 17, 0, close_window, fdf);
 		mlx_hook(fdf->mlx.win, 2, 3, keys_manip, fdf);
 		mlx_loop_hook(fdf->mlx.init, ft_draw, fdf);
 		mlx_loop(fdf->mlx.init);
+		if (!fdf)
+			fdf_terminate(fdf);
+		return (0);
 	}
 	else
 		help_for_fdf();
