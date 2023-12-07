@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 10:51:22 by ohanchak          #+#    #+#             */
-/*   Updated: 2022/12/28 19:15:26 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:15:14 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int	ft_draw(t_fdf *fdf)
 	int		z;
 
 	z = 0;
-	fdf->mlx.img = mlx_new_image(fdf->mlx.init, WIN_WIDTH, WIN_HEIGHT);
-	fdf->image.data = mlx_get_data_addr(fdf->mlx.img, &fdf->image.bpp, \
+	fdf->t_v.img = mlx_new_image(fdf->t_v.init, WIN_WIDTH, WIN_HEIGHT);
+	fdf->image.data = mlx_get_data_addr(fdf->t_v.img, &fdf->image.bpp, \
 		&fdf->image.size, &fdf->image.endian);
 	while (fdf->map.height > z)
 	{
@@ -114,7 +114,7 @@ int	ft_draw(t_fdf *fdf)
 		}
 		z += 1;
 	}
-	mlx_put_image_to_window(fdf->mlx.init, fdf->mlx.win, fdf->mlx.img, 0, 0);
-	mlx_destroy_image(fdf->mlx.init, fdf->mlx.img);
+	mlx_put_image_to_window(fdf->t_v.init, fdf->t_v.win, fdf->t_v.img, 0, 0);
+	mlx_destroy_image(fdf->t_v.init, fdf->t_v.img);
 	return (0);
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/07 15:49:25 by ohanchak          #+#    #+#             */
+/*   Updated: 2023/12/07 16:14:38 by ohanchak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
@@ -11,20 +22,20 @@
 # include "../libft/libft.h"
 # include "keys.h"
 
-# define MAX_X			(10)
-# define MAX_ZOOM		(5)
-# define MAGIC_ZOOM		(2)
-# define WIN_WIDTH		(1280)
-# define WIN_HEIGHT		(720)
+# define MAX_X			10
+# define MAX_ZOOM		5
+# define MAGIC_ZOOM		2
+# define WIN_WIDTH		1280
+# define WIN_HEIGHT		720
 
 typedef struct mlx
 {
-	void*		window;
-	void*		context;
+	void		*window;
+	void		*context;
 	int32_t		width;
 	int32_t		height;
 	double		delta_time;
-}	mlx_t;
+}	t_v;
 
 typedef struct s_mlx
 {
@@ -68,7 +79,7 @@ typedef struct s_color
 
 typedef struct s_fdf
 {
-	t_mlx	mlx;
+	t_mlx	t_v;
 	t_map	map;
 	t_image	image;
 	t_color	color;
@@ -81,5 +92,6 @@ int				ft_open(char *map_file);
 
 void			ft_read(char *map_file, t_fdf *fdf);
 int				ft_draw(t_fdf *fdf);
+int				close_window(void *param);
 
 #endif

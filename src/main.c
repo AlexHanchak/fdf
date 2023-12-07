@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:51:22 by ohanchak          #+#    #+#             */
-/*   Updated: 2022/12/28 19:15:26 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:14:42 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,46 +80,28 @@ static int	keys_manip(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-int	close_window(void *param)
-{
-	t_fdf *fdf;
-
-	fdf = (t_fdf *)param;
-	if (fdf)
-	{
-		fdf_terminate(fdf);
-		ft_free((void **)fdf->map.values);
-		free(fdf);
-	}
-	exit(0);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
 
 	fdf = (t_fdf *)malloc(sizeof(t_fdf));
 	if (argc == 2)
-	{	
+	{
 		if (!fdf)
-			ft_message("Memory allocation failed", 3);
+			ft_message("wrong allocation size", 3);
 		ft_read(argv[1], fdf);
 		reset_color_map(fdf);
-		fdf->mlx.init = mlx_init();
-		fdf->mlx.win = mlx_new_window(fdf->mlx.init, WIN_WIDTH, WIN_HEIGHT, \
-			"FDF");
-		mlx_hook(fdf->mlx.win, 17, 0, close_window, fdf);
-		mlx_hook(fdf->mlx.win, 2, 3, keys_manip, fdf);
-		mlx_loop_hook(fdf->mlx.init, ft_draw, fdf);
-		mlx_loop(fdf->mlx.init);
-		if (!fdf)
-			fdf_terminate(fdf);
-		return (0);
+		fdf->t_v.init = mlx_init();
+		fdf->t_v.win = mlx_new_window(fdf->t_v.init, WIN_WIDTH,
+				WIN_HEIGHT, "FDF");
+		mlx_hook(fdf->t_v.win, 17, 0, close_window, fdf);
+		mlx_hook(fdf->t_v.win, 2, 3, keys_manip, fdf);
+		mlx_loop_hook(fdf->t_v.init, ft_draw, fdf);
+		mlx_loop(fdf->t_v.init);
 	}
 	else
 		help_for_fdf();
-	 ft_free((void **) fdf->map.values);
-	 free(fdf);
+	ft_free((void **) fdf->map.values);
+	free(fdf);
 	return (0);
 }

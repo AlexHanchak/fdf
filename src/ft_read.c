@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:50:16 by ohanchak          #+#    #+#             */
-/*   Updated: 2022/12/28 19:15:26 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:43:06 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	count_values(char *line)
 				line += 1;
 		}
 		else if (*line != ' ' && *line != '-')
-			ft_message("Invalid characters or read error...!!!", 5);
+			ft_message("read error or in file wrong value", 5);
 		line += 1;
 	}
 	return (len);
@@ -44,8 +44,8 @@ static void	count_lines(t_fdf *fdf, char *map_file)
 	cols = 0;
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		ft_message("Error opening file!!!", 1);
-	while (get_next_line(fd, &line)==1)
+		ft_message("open file error", 1);
+	while (get_next_line(fd, &line) == 1)
 	{
 		if (*line == '\0')
 			break ;
@@ -54,7 +54,7 @@ static void	count_lines(t_fdf *fdf, char *map_file)
 		free(line);
 	}
 	if (close(fd) < 0)
-		ft_message("Error closing file!!!", 2);
+		ft_message("problem with closing file", 2);
 	fdf->map.width = cols;
 	fdf->map.height = rows;
 }
@@ -90,17 +90,17 @@ void	ft_read(char *map_file, t_fdf *fdf)
 	fd = ft_open(map_file);
 	fdf->map.values = (int **)malloc(sizeof(int *) * fdf->map.height);
 	if (!fdf->map.values)
-		ft_message("Memory Allocation failed!!!", 3);
+		ft_message("cant allocate memory", 3);
 	while (get_next_line(fd, &line) && z != fdf->map.height)
 	{
 		fdf->map.values[z] = (int *)malloc(sizeof(int) * fdf->map.width);
 		if (!fdf->map.values[z])
-			ft_message("Memory Allocation failed! :O", 3);
+			ft_message("check val then read", 3);
 		get_values(fdf, y, z, line);
 		y = 0;
 		z++;
 		free(line);
 	}
 	if (close(fd) < 0)
-		ft_message("Error closing file! WTF?! :)", 2);
+		ft_message("inf loop at close state", 2);
 }
