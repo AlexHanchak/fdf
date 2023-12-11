@@ -6,7 +6,7 @@
 /*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:51:22 by ohanchak          #+#    #+#             */
-/*   Updated: 2023/12/07 16:14:42 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:37:57 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	help_for_fdf(void)
 	ft_putstr_fd("Controls:\n", 1);
 	ft_putstr_fd("\t[Esc]        -> Exit.\n", 1);
 	ft_putstr_fd("\t[R]          -> Reset.\n", 1);
-	ft_putstr_fd("\t[M]          -> Colorize!.\n", 1);
+	ft_putstr_fd("\t[C]          -> Colorize!.\n", 1);
 	ft_putstr_fd("\t[B][N]       -> Zoom.\n", 1);
 	ft_putstr_fd("\t[J][K]       -> Rotation time!\n", 1);
 	ft_putstr_fd("\t[Space]      -> Camera.\n", 1);
@@ -57,15 +57,15 @@ static int	keys_manip(int keycode, t_fdf *fdf)
 		fdf_terminate(fdf);
 	else if (keycode == KEY_ANSI_R)
 		reset_color_map(fdf);
-	else if (keycode == KEY_ANSI_M)
+	else if (keycode == KEY_ANSI_C)
 		colors_rand(fdf);
-	else if (keycode == KEY_ANSI_W || keycode == KEY_UPARROW)
+	else if (keycode == KEY_ANSI_W)
 		fdf->map.coordinate_z -= 1;
-	else if (keycode == KEY_ANSI_S || keycode == KEY_DOWNARROW)
+	else if (keycode == KEY_ANSI_S)
 		fdf->map.coordinate_z += 1;
-	else if (keycode == KEY_ANSI_D || keycode == KEY_RIGHTARROW)
+	else if (keycode == KEY_ANSI_D)
 		fdf->map.coordinate_y += 1;
-	else if (keycode == KEY_ANSI_A || keycode == KEY_LEFTARROW)
+	else if (keycode == KEY_ANSI_A)
 		fdf->map.coordinate_y -= 1;
 	else if (keycode == KEY_ANSI_B)
 		fdf->map.zoom += 1;
@@ -80,10 +80,16 @@ static int	keys_manip(int keycode, t_fdf *fdf)
 	return (0);
 }
 
+void at_exit(void)
+{
+	system("leaks fdf");
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
 
+	atexit(at_exit);
 	fdf = (t_fdf *)malloc(sizeof(t_fdf));
 	if (argc == 2)
 	{
@@ -100,7 +106,10 @@ int	main(int argc, char **argv)
 		mlx_loop(fdf->t_v.init);
 	}
 	else
+	{
 		help_for_fdf();
+		return (0);
+	}
 	ft_free((void **) fdf->map.values);
 	free(fdf);
 	return (0);
