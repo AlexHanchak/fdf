@@ -1,3 +1,9 @@
 [submodule "libft"]
 	path = libft
 	url = https://github.com/AlexHanchak/lib.git
+[submodule "libft"]
+	path = libft
+	url = https://github.com/AlexHanchak/lib.git
+[submodule "lib"]
+	path = lib
+	url = https://github.com/AlexHanchak/lib.git
