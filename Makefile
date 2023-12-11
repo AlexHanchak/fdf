@@ -13,7 +13,7 @@ FLAGS		= -Wall -Wextra -Werror
 
 RM			= rm -rf
 
-GT 			= git clone git@github.com:AlexHanchak/lib.git
+GT 			= git clone https://github.com/AlexHanchak/lib.git
 
 .c.o:
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
