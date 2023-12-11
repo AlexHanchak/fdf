@@ -6,17 +6,11 @@
 /*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:51:22 by ohanchak          #+#    #+#             */
-/*   Updated: 2023/12/11 17:49:17 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:17:29 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-// void at_exit(void)
-// {
-// 	system("leaks fdf");
-// }
-// 	atexit(at_exit);
 
 static void	help_for_fdf(void)
 {
