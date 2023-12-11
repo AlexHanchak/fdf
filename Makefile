@@ -9,35 +9,30 @@ OBJS		= $(SRCS:.c=.o)
 
 CC			= gcc
 INCLUDES	= -Imlx
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -g -Wall -Wextra -Werror
 
 RM			= rm -rf
-
-GT 			= git clone https://github.com/AlexHanchak/lib.git
 
 .c.o:
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
 
 all:		$(NAME)
 
-lib:
-	$(GT) $@"ft"
-
-$(NAME):	$(OBJS)
+$(NAME):	 $(OBJS)
 	@$(MAKE) -C ./mlx
 	@$(MAKE) -C ./libft
 	@$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit ./libft/libft.a -o $(NAME) 
 
 clean:
-	@$(MAKE) -C ./libft fclean
+	@$(MAKE) -C ./libft clean
 	@$(RM) $(OBJS)
 
 fclean:		clean
-	@$(RM) $(NAME) 
+	@$(RM) $(NAME)
 
 re:	fclean all
 
 norm:
-	@norminette $(SRCS)
+	@norminette $(SRCS) includes/
 
 .PHONY: all .c.o clean fclean re norm

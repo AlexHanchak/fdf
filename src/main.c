@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcazac <pcazac@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:51:22 by ohanchak          #+#    #+#             */
-/*   Updated: 2023/12/11 15:39:25 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:35:04 by pcazac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
+// void at_exit(void)
+// {
+// 	system("leaks fdf");
+// }
+// 	atexit(at_exit);
+
 static void	help_for_fdf(void)
 {
 	ft_putstr_fd("Usage:\n\t", 1);
 	ft_putstr_fd("FDF ", 1);
-	ft_putstr_fd(" nead fdf_file\n", 1);
+	ft_putstr_fd(" need fdf_file\n", 1);
 	ft_putstr_fd("Controls:\n", 1);
 	ft_putstr_fd("\t[Esc]        -> Exit.\n", 1);
 	ft_putstr_fd("\t[R]          -> Reset.\n", 1);
@@ -54,7 +60,7 @@ static void	colors_rand(t_fdf *fdf)
 static int	keys_manip(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESCAPE)
-		fdf_terminate(fdf);
+		close_window(fdf);
 	else if (keycode == KEY_ANSI_R)
 		reset_color_map(fdf);
 	else if (keycode == KEY_ANSI_C)
@@ -80,37 +86,24 @@ static int	keys_manip(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-void at_exit(void)
-{
-	system("leaks fdf");
-}
-
 int	main(int argc, char **argv)
 {
-	t_fdf	*fdf;
+	t_fdf	fdf;
 
-	atexit(at_exit);
-	fdf = (t_fdf *)malloc(sizeof(t_fdf));
 	if (argc == 2)
 	{
-		if (!fdf)
-			ft_message("wrong allocation size", 3);
-		ft_read(argv[1], fdf);
-		reset_color_map(fdf);
-		fdf->t_v.init = mlx_init();
-		fdf->t_v.win = mlx_new_window(fdf->t_v.init, WIN_WIDTH,
+		ft_read(argv[1], &fdf);
+		reset_color_map(&fdf);
+		fdf.t_v.init = mlx_init();
+		fdf.t_v.win = mlx_new_window(fdf.t_v.init, WIN_WIDTH,
 				WIN_HEIGHT, "FDF");
-		mlx_hook(fdf->t_v.win, 17, 0, close_window, fdf);
-		mlx_hook(fdf->t_v.win, 2, 3, keys_manip, fdf);
-		mlx_loop_hook(fdf->t_v.init, ft_draw, fdf);
-		mlx_loop(fdf->t_v.init);
+		mlx_hook(fdf.t_v.win, 17, 0, close_window, &fdf);
+		mlx_hook(fdf.t_v.win, 2, 3, keys_manip, &fdf);
+		mlx_loop_hook(fdf.t_v.init, ft_draw, &fdf);
+		mlx_loop(fdf.t_v.init);
 	}
 	else
-	{
-		help_for_fdf();
-		return (0);
-	}
-	ft_free((void **) fdf->map.values);
-	free(fdf);
+		return (help_for_fdf(), 0);
+	ft_free((void **) fdf.map.values);
 	return (0);
 }

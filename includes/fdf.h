@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcazac <pcazac@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:49:25 by ohanchak          #+#    #+#             */
-/*   Updated: 2023/12/07 16:14:38 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:09:47 by pcazac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,10 @@ typedef struct s_fdf
 }				t_fdf;
 
 void			key_space(t_fdf *fdf);
-void			fdf_terminate(t_fdf *fdf);
 void			check_rows_col(int *cols, int *rows, int *len);
 int				ft_open(char *map_file);
 
 void			ft_read(char *map_file, t_fdf *fdf);
 int				ft_draw(t_fdf *fdf);
-int				close_window(void *param);
-
+int				close_window(t_fdf *fdf);
 #endif

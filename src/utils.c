@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcazac <pcazac@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:13:26 by ohanchak          #+#    #+#             */
-/*   Updated: 2023/12/11 15:20:22 by ohanchak         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:18:37 by pcazac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ void	key_space(t_fdf *fdf)
 		fdf->map.angle_z *= 0.2;
 	else
 		fdf->map.angle_z *= 5;
-}
-
-void	fdf_terminate(t_fdf *fdf)
-{
-	free(fdf);
-	exit(0);
 }
 
 void	check_rows_col(int *cols, int *rows, int *len)
@@ -46,17 +40,8 @@ int	ft_open(char *map_file)
 	return (fd);
 }
 
-int	close_window(void *param)
+int	close_window(t_fdf *fdf)
 {
-	t_fdf	*fdf;
-
-	fdf = (t_fdf *)param;
-	if (fdf)
-	{
-		fdf_terminate(fdf);
-		ft_free((void **)fdf->map.values);
-		free(fdf);
-	}
+	fdf = NULL;
 	exit(0);
-	return (0);
 }
