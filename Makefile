@@ -6,17 +6,15 @@
 #    By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 17:56:26 by ohanchak          #+#    #+#              #
-#    Updated: 2023/12/11 18:17:01 by ohanchak         ###   ########.fr        #
+#    Updated: 2023/12/11 19:03:58 by ohanchak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME		= fdf
 
-LIBMLX		= ./lib/MLX42
 LIBFT 		= libft/libft.a
 LIB_PATH 	= libft
-LIBS		= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 HEADERS		= -I ./include -I $(LIBMLX)/include
 SRCS		= ./src/main.c ./src/ft_read.c ./src/ft_draw.c ./src/utils.c
 OBJS		= $(SRCS:.c=.o)
@@ -50,6 +48,7 @@ clean:
 
 fclean:		clean
 	@$(RM) $(NAME)
+	@$(MAKE) -C ./libft fclean
 
 re:	fclean all
 
